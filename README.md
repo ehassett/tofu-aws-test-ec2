@@ -5,7 +5,10 @@ A simple OpenTofu (Terraform) workspace for working with a test EC2 instance.
 ## Usage
 
 Include the required variables in `terraform.tfvars` and run `tofu apply` (after initializing).
-For an easier way to include the `workstation_ip`, run `IP=`curl --silent ifconfig.me`; tofu apply -var workstation_ip=$IP`.
+For an easier way to include the `workstation_ip`, run
+```bash
+IP=`curl --silent ifconfig.me`; tofu apply -var workstation_ip=$IP
+```
 
 Example `terraform.tfvars`:
 ```hcl
