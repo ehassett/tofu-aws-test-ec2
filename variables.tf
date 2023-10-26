@@ -1,6 +1,19 @@
+variable "ami_id" {
+  description = "ID of the AMI to use. Overwrites ami_name."
+  type        = string
+  default     = null
+}
+
 variable "ami_name" {
   description = "Name of the AMI to use (Amazon-owned only)."
   type        = string
+  default     = null
+}
+
+variable "get_password_data" {
+  description = "Whether to export password data for the instance (usable for Windows instances)."
+  type        = bool
+  default     = false
 }
 
 variable "instance_type" {
