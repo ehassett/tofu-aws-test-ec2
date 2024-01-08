@@ -1,4 +1,4 @@
-# tofu-aws-ec2-testing
+# tofu-aws-test-ec2
 
 A simple OpenTofu (Terraform) workspace for working with a test EC2 instance.
 
