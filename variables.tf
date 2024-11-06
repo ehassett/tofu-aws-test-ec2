@@ -10,6 +10,12 @@ variable "ami_name" {
   default     = null
 }
 
+variable "associate_public_ip_address" {
+  description = "Whether to associate a public IP address with the instance."
+  type        = bool
+  default     = false
+}
+
 variable "get_password_data" {
   description = "Whether to export password data for the instance (usable for Windows instances)."
   type        = bool
@@ -32,8 +38,15 @@ variable "region" {
 }
 
 variable "subnet_id" {
-  description = "ID of the subnet in which to deploy resources."
+  description = "ID of the subnet in which to deploy resources. Overwrites subnet_name."
   type        = string
+  default     = null
+}
+
+variable "subnet_name" {
+  description = "Name of the subnet to use."
+  type        = string
+  default     = null
 }
 
 variable "workstation_ip" {
