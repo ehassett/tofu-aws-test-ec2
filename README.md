@@ -36,7 +36,7 @@ vpc_id        = "vpc-00000000000000000"
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.64.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.74.0 |
 
 ## Inputs
 
@@ -44,11 +44,13 @@ vpc_id        = "vpc-00000000000000000"
 |------|-------------|------|---------|:--------:|
 | <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | ID of the AMI to use. Overwrites ami\_name. | `string` | `null` | no |
 | <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | Name of the AMI to use (Amazon-owned only). | `string` | `null` | no |
+| <a name="input_associate_public_ip_address"></a> [associate\_public\_ip\_address](#input\_associate\_public\_ip\_address) | Whether to associate a public IP address with the instance. | `bool` | `false` | no |
 | <a name="input_get_password_data"></a> [get\_password\_data](#input\_get\_password\_data) | Whether to export password data for the instance (usable for Windows instances). | `bool` | `false` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type (size) of the test instance. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name used for test resources. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | AWS region in which to deploy resources. | `string` | n/a | yes |
-| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | ID of the subnet in which to deploy resources. | `string` | n/a | yes |
+| <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | ID of the subnet in which to deploy resources. Overwrites subnet\_name. | `string` | `null` | no |
+| <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | Name of the subnet to use. | `string` | `null` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC in which to deploy resources. | `string` | n/a | yes |
 | <a name="input_workstation_ip"></a> [workstation\_ip](#input\_workstation\_ip) | IP of workstation used to access the test instance. | `string` | n/a | yes |
 
@@ -73,4 +75,5 @@ No modules.
 | [aws_security_group_rule.allow_all_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.allow_workstation_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_ami.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_subnet.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
 <!-- END_TF_DOCS -->
