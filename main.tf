@@ -1,3 +1,34 @@
+data "aws_ami" "this" {
+  count = var.ami_name != null ? 1 : 0
+
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "name"
+    values = [var.ami_name]
+  }
+}
+
+data "aws_subnet" "this" {
+  count = var.subnet_name != null ? 1 : 0
+
+  filter {
+    name   = "vpc-id"
+    values = [var.vpc_id]
+  }
+
+  filter {
+    name   = "tag:Name"
+    values = [var.subnet_name]
+  }
+}
+
 resource "aws_key_pair" "this" {
   key_name   = var.name
   public_key = fileexists("~/.ssh/id_rsa.pub") ? file("~/.ssh/id_rsa.pub") : ""
@@ -42,19 +73,15 @@ resource "aws_security_group_rule" "allow_workstation_ingress" {
 }
 
 resource "aws_instance" "this" {
-  #checkov:skip=CKV_AWS_79:Ignoring metadata options
-  #checkov:skip=CKV_AWS_88:Instance needs a public IP
-  #checkov:skip=CKV2_AWS_41:Instance does not need an IAM instance profile
-
   ami                         = var.ami_id == null ? data.aws_ami.this[0].id : var.ami_id
-  associate_public_ip_address = true
+  associate_public_ip_address = var.associate_public_ip_address
   availability_zone           = format("%sa", var.region)
   ebs_optimized               = true
   get_password_data           = var.get_password_data
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.this.key_name
   monitoring                  = true
-  subnet_id                   = var.subnet_id
+  subnet_id                   = var.subnet_id == null ? data.aws_subnet.this[0].id : var.subnet_id
   vpc_security_group_ids      = [aws_security_group.this.id]
 
   root_block_device {
@@ -64,4 +91,7 @@ resource "aws_instance" "this" {
   tags = {
     Name = var.name
   }
+
+  #checkov:skip=CKV_AWS_79:metadata options not necessary
+  #checkov:skip=CKV2_AWS_41:instance profile not needed
 }
