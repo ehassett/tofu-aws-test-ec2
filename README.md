@@ -36,7 +36,7 @@ vpc_id        = "vpc-00000000000000000"
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.74.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.88.0 |
 
 ## Inputs
 
@@ -52,13 +52,14 @@ vpc_id        = "vpc-00000000000000000"
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | ID of the subnet in which to deploy resources. Overwrites subnet\_name. | `string` | `null` | no |
 | <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name) | Name of the subnet to use. | `string` | `null` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC in which to deploy resources. | `string` | n/a | yes |
-| <a name="input_workstation_ip"></a> [workstation\_ip](#input\_workstation\_ip) | IP of workstation used to access the test instance. | `string` | n/a | yes |
+| <a name="input_workstation_ip"></a> [workstation\_ip](#input\_workstation\_ip) | IP of workstation used to access the test instance. If omitted, all ingress traffic will be allowed. | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_plaintext_password"></a> [plaintext\_password](#output\_plaintext\_password) | Plaintext password for the test instance. |
+| <a name="output_private_ip"></a> [private\_ip](#output\_private\_ip) | Private IP address of the test instance. |
 | <a name="output_public_ip"></a> [public\_ip](#output\_public\_ip) | Public IP address of the test instance. |
 
 ## Modules
@@ -73,6 +74,7 @@ No modules.
 | [aws_key_pair.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group_rule.allow_all_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.allow_all_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_security_group_rule.allow_workstation_ingress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_ami.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
 | [aws_subnet.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet) | data source |
