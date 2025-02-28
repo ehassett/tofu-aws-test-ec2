@@ -50,8 +50,9 @@ variable "subnet_name" {
 }
 
 variable "workstation_ip" {
-  description = "IP of workstation used to access the test instance."
+  description = "IP of workstation used to access the test instance. If omitted, all ingress traffic will be allowed."
   type        = string
+  default     = null
 }
 
 variable "vpc_id" {
