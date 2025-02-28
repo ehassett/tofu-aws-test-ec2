@@ -60,7 +60,23 @@ resource "aws_security_group_rule" "allow_all_egress" {
   cidr_blocks       = ["0.0.0.0/0"]
 }
 
+resource "aws_security_group_rule" "allow_all_ingress" {
+  count = var.workstation_ip == null ? 1 : 0
+
+  description = "Allow all ingress"
+
+  type      = "ingress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 0
+
+  security_group_id = aws_security_group.this.id
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "allow_workstation_ingress" {
+  count = var.workstation_ip == null ? 0 : 1
+
   description = "Allow all ingress from workstation"
 
   type      = "ingress"
