@@ -7,6 +7,6 @@ on:
 jobs:
   iac-checks:
     name: IaC Checks
-    uses: ehassett/workflows/workflows/iac-checks.yaml@feature/add-iac-checks-workflow
+    uses: ehassett/workflows/.github/workflows/iac-checks.yaml@feature/add-iac-checks-workflow
     with:
       tool: "tofu"
