@@ -1,39 +1,12 @@
 name: IaC Checks
 
 on:
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened, edited]
-    paths:
-      - "**/*.tf"
-
-permissions:
-  contents: read
-  pull-requests: read
-
-env:
-  GITHUB_TOKEN: ${{ github.token }}
+  pull_request:
+    paths: ["*.tf"]
 
 jobs:
   iac-checks:
     name: IaC Checks
-    strategy:
-      fail-fast: false
-      matrix:
-        working_directory: ["."]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-
-      - name: Set up OpenTofu
-        uses: opentofu/setup-opentofu@v1
-
-      - name: Set up tflint
-        uses: terraform-linters/setup-tflint@v4
-
-      - name: Run IaC Checks
-        uses: ./.github/actions/iac-checks
-        with:
-          working_directory: ${{ matrix.working_directory }}
+    uses: ehassett/workflows/.github/workflows/iac-checks.yaml@main
+    with:
+      tool: "tofu"
